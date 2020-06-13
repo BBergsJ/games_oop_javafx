@@ -34,4 +34,22 @@ public class BishopBlackTest extends TestCase {
         Cell[] expected = bishopBlack.way(Cell.D4, Cell.G1);
         assertThat(expected, is(new Cell[] {Cell.E3, Cell.F2,Cell.G1}));
     }
+
+    public void testWayWhenUpLeftThen() {
+        BishopBlack bishopBlack = new BishopBlack(Cell.D4);
+        Cell[] expected = bishopBlack.way(Cell.D4, Cell.A1);
+        assertThat(expected, is(new Cell[] {Cell.C3, Cell.B2,Cell.A1}));
+    }
+
+    public void testWayWhenUpRightThen() {
+        BishopBlack bishopBlack = new BishopBlack(Cell.D4);
+        Cell[] expected = bishopBlack.way(Cell.D4, Cell.A7);
+        assertThat(expected, is(new Cell[] {Cell.C5, Cell.B6,Cell.A7}));
+    }
+
+    public void testWayWhenDownRightThen() {
+        BishopBlack bishopBlack = new BishopBlack(Cell.D4);
+        Cell[] expected = bishopBlack.way(Cell.D4, Cell.H8);
+        assertThat(expected, is(new Cell[] {Cell.E5, Cell.F6, Cell.G7,Cell.H8}));
+    }
 }

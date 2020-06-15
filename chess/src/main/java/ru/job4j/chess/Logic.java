@@ -21,28 +21,32 @@ public class Logic {
         this.figures[this.index++] = figure;
     }
 
-    public boolean move(Cell source, Cell dest) {
+    public boolean move(Cell source, Cell dest) throws IllegalStateException {
         boolean rst = false;
         int index = this.findBy(source);
         int target = this.findBy(dest);
         if (index != -1 && target == -1) {
             try {
                 Cell[] steps = this.figures[index].way(source, dest);
-                for (int step = 0; step < steps.length; step++) {
-                    int empty = findBy(steps[step]);
-                    if (empty != -1 || target != -1) {
-                        return false;
-                    }
-                }
-                if (steps.length > 0 && steps[steps.length - 1].equals(dest)) {
+                if (steps.length > 0 && steps[steps.length - 1].equals(dest) && isWayFree(steps, target)) {
                     rst = true;
                     this.figures[index] = this.figures[index].copy(dest);
                 }
-            } catch (IllegalStateException ise) {
-                ise.printStackTrace();
+            }catch (IllegalStateException ise) {
+                System.out.println("Can't move by this way!");
             }
         }
         return rst;
+    }
+
+    public boolean isWayFree(Cell[] steps, int target) {
+        for (int step = 0; step < steps.length; step++) {
+            int empty = findBy(steps[step]);
+            if (empty != -1 || target != -1) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public void clean() {
